@@ -1,0 +1,42 @@
+.circle {
+    clip-path: circle(50% at 50% 50%);
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-gray-300);
+}
+
+.square {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    width: 15px;
+    height: 15px;
+    font-size: xx-small;
+}
+
+.circle.circle-yellow {
+    width: 30px;
+    height: 30px;
+    color: black;
+    background-color: var(--color-yellow-400);
+}
+
+.hex-shape {
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+@keyframes wobblePop {
+    0% { transform: rotate(-18deg) scale(1); }
+    10% { transform: rotate(15deg) scale(1.13); }
+    20% { transform: rotate(-12deg) scale(0.94); }
+    30% { transform: rotate(12deg) scale(1.14); }
+    40% { transform: rotate(-8deg) scale(0.97);}
+    50% { transform: rotate(7deg) scale(1.07);}
+    60% { transform: rotate(-4deg) scale(0.99);}
+    70% { transform: rotate(3deg) scale(1.03);}
+    80% { transform: rotate(-2deg) scale(0.98);}
+    90% { transform: rotate(2deg) scale(1.01);}
+    100% { transform: rotate(0deg) scale(1);}
+}
+.wobble-pop {
+  display: inline-block;
+  animation: wobblePop 1.2s infinite cubic-bezier(.4,0,.2,1);
+}
