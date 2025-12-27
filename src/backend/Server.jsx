@@ -68,7 +68,7 @@ const Server = ({ setPangram, setLetters, setAllWordsCount, setThresholds, setIs
             const jsonResponse = JSON.parse(await result.response.text());
             // return jsonResponse;
             setLetters(jsonResponse.letters);
-            const count = countWords(jsonResponse.letters.join(''));
+            const count = 0; // TEMP: bypass countWords
             setThresholds(getCumulativeRankThresholds(count));
             setAllWordsCount(count);
             setPangram(jsonResponse.word[0]);
