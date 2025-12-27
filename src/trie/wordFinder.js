@@ -13,20 +13,23 @@ for (let word in wordDict) {
  * @param {string} letters
  * @returns {number}
  */
-export function countWords(letters, minLength = 4) {
+export function countWords(letters, minLength = 4, maxLength = 20) {
   const inputLetters = letters.toLowerCase();
   const found = new Set();
+  const stack = [{ path: "", node: trie.root }];
 
-  function backtrack(path, node) {
+  while (stack.length) {
+    const { path, node } = stack.pop();
     if (node.isWord && path.length >= minLength) found.add(path);
+    if (path.length >= maxLength) continue;
 
-    for (let char of inputLetters) {
-      if (node.children[char]) {
-        backtrack(path + char, node.children[char]);
+    for (const char of inputLetters) {
+      const child = node.children[char];
+      if (child) {
+        stack.push({ path: path + char, node: child });
       }
     }
   }
 
-  backtrack("", trie.root);
   return found.size;
 }
