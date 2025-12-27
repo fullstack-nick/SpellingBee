@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI, SchemaType } from "https://esm.sh/@google/generative-ai";
 import { useEffect } from 'react';
-import { countWords } from "../trie/wordFinder";
+// import { countWords } from "../trie/wordFinder";
 import { getCumulativeRankThresholds } from '../scoring/scoring.js';
 
 const Server = ({ setPangram, setLetters, setAllWordsCount, setThresholds, setIsLoading, setGameIsSet }) => {
@@ -68,7 +68,7 @@ const Server = ({ setPangram, setLetters, setAllWordsCount, setThresholds, setIs
             const jsonResponse = JSON.parse(await result.response.text());
             // return jsonResponse;
             setLetters(jsonResponse.letters);
-            const count = 0; // TEMP: bypass countWords
+            const count = 0; // TEMP: bypass wordFinder
             setThresholds(getCumulativeRankThresholds(count));
             setAllWordsCount(count);
             setPangram(jsonResponse.word[0]);
