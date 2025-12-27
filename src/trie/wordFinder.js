@@ -1,11 +1,21 @@
 import { Trie } from "./Trie";
-import wordDict from "./words_dictionary.json"; // word => 1
+import wordDictUrl from "./words_dictionary.json?url"; // word => 1
 
-const trie = new Trie();
+let triePromise = null;
 
-// Insert all words into the Trie
-for (let word in wordDict) {
-  if (word.length >= 4) trie.insert(word.toLowerCase());
+async function getTrie() {
+  if (!triePromise) {
+    triePromise = (async () => {
+      const response = await fetch(wordDictUrl);
+      const wordDict = await response.json();
+      const trie = new Trie();
+      for (const word in wordDict) {
+        if (word.length >= 4) trie.insert(word.toLowerCase());
+      }
+      return trie;
+    })();
+  }
+  return triePromise;
 }
 
 /**
@@ -13,7 +23,8 @@ for (let word in wordDict) {
  * @param {string} letters
  * @returns {number}
  */
-export function countWords(letters, minLength = 4, maxLength = 20) {
+export async function countWords(letters, minLength = 4, maxLength = 20) {
+  const trie = await getTrie();
   const inputLetters = letters.toLowerCase();
   const found = new Set();
   const stack = [{ path: "", node: trie.root }];
