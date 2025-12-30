@@ -1,27 +1,12 @@
 # Spelling Bee
 
-A browser-based Spelling Bee-style word game built with React and Vite that generates a 7-letter puzzle using Gemini and scores guesses.
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Typical User Workflow](#typical-user-workflow)
-- [Tech Stack](#tech-stack)
-- [Architecture / Project Structure](#architecture--project-structure)
-- [Getting Started (Developer)](#getting-started-developer)
-- [Configuration](#configuration)
-- [Deployment](#deployment)
-- [Security / Privacy Notes](#security--privacy-notes)
-- [Contributing](#contributing)
-- [License](#license)
-- [Live Demo](#live-demo)
+A browser-based NY Times Spelling Bee word game clone built with React that generates a 7-letter puzzle using Gemini and scores guesses.
 
 ## Overview
 
-Spelling Bee is a single-page word puzzle where players form words from seven letters around a required center letter. Puzzles are generated at runtime via the Google Generative AI SDK (Gemini), while difficulty thresholds are computed locally from a bundled dictionary. The result is a lightweight, replayable word game for players and a concise reference project for developers exploring React + Vite + Tailwind with client-side AI calls.
+Spelling Bee is a single-page word puzzle where players form words from seven letters around a required center letter. Puzzles are generated at runtime via the Google Generative AI SDK (Gemini), while difficulty thresholds are computed locally from a bundled dictionary. The result is a lightweight, replayable word game for players and a concise reference project for developers exploring React + Tailwind with client-side AI calls.
 
-Key differentiators visible in the codebase:
+Key code differentiators:
 
 - Puzzle generation and word validation are driven by Gemini from the browser.
 - Difficulty thresholds are computed from a local dictionary using a trie-based counter.
@@ -70,55 +55,8 @@ This is a client-only single-page application. On first load, it calls Gemini to
 - **Local data**: A bundled dictionary (`src/trie/words_dictionary.json`) is fetched at runtime to build a trie for word counting.
 - **State persistence**: Browser `localStorage` stores letters, pangram, guessed words, points, and rank thresholds.
 - **UI utilities**: `react-icons` for controls, `react-spinners` for loading, and `react-confetti` for the win overlay.
-- **Linting**: ESLint with React Hooks and React Refresh rules.
-- **Testing**: No test runner configured.
-- **CI/CD and deployment**: No pipeline or deployment config present.
-- **Observability/logging**: No logging or monitoring tooling beyond basic console usage.
 
 ## Architecture / Project Structure
-
-```
-.
-|-- public/
-|   |-- sb-apple-touch-icon.png
-|   |-- sb-safari-pinned-tab.svg
-|   `-- vite.svg
-|-- src/
-|   |-- assets/
-|   |   `-- react.svg
-|   |-- backend/
-|   |   |-- Server.jsx
-|   |   |-- pangramValidator.js
-|   |   `-- validator.js
-|   |-- components/
-|   |   |-- ButtonsRow.jsx
-|   |   |-- GuessedWords.jsx
-|   |   |-- Header.jsx
-|   |   |-- HexBoard.jsx
-|   |   |-- HexLetters.jsx
-|   |   |-- InputDiv.jsx
-|   |   |-- ProgressBar.jsx
-|   |   |-- Rankings.jsx
-|   |   |-- WordPanel.jsx
-|   |   |-- YouWon.jsx
-|   |   `-- server.js
-|   |-- scoring/
-|   |   `-- scoring.js
-|   |-- trie/
-|   |   |-- Trie.js
-|   |   |-- wordFinder.js
-|   |   `-- words_dictionary.json
-|   |-- App.jsx
-|   |-- App.css
-|   |-- draft.html
-|   |-- index.css
-|   `-- main.jsx
-|-- .env
-|-- eslint.config.js
-|-- index.html
-|-- package.json
-`-- vite.config.js
-```
 
 Notable modules and responsibilities:
 
@@ -136,82 +74,6 @@ Patterns used:
 - Component-based UI with React hooks.
 - Client-only architecture; no backend service or database in this repository.
 
-## Getting Started (Developer)
-
-### Prerequisites
-
-- Node.js and npm.
-- A Google Generative AI API key (see Environment Variables).
-
-### Installation
-
-```bash
-npm install
-```
-
-### Environment Variables
-
-Create a `.env` file in the project root (or update the existing one).
-
-| Variable              | Required | Description                                                  | Referenced in                                                                                                       |
-| --------------------- | -------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `VITE_GEMINI_API_KEY` | Yes      | API key used by the Google Generative AI SDK in the browser. | `src/backend/Server.jsx`, `src/backend/validator.js`, `src/backend/pangramValidator.js`, `src/components/server.js` |
-
-> Note: This key is used client-side. Treat it as public and consider proxying through a backend if you need to protect it.
-
-### Run locally (dev)
-
-```bash
-npm run dev
-```
-
-### Build / production run
-
-```bash
-npm run build
-npm run preview
-```
-
-### Tests and linting
-
-```bash
-npm run lint
-```
-
-No automated test runner is configured.
-
-## Configuration
-
-- `vite.config.js`: Vite setup with React and Tailwind CSS plugins.
-- `eslint.config.js`: ESLint rules for React, hooks, and refresh behavior.
-- `index.html`: Vite entry HTML and root mount point.
-- `src/index.css`: Tailwind CSS import entry point.
-- `.env`: Environment variables for the Gemini API key.
-
-## Deployment
-
-No deployment configuration is included in this repository. Generic static deployment steps:
-
-1. Run `npm run build` to generate the production bundle in `dist/`.
-2. Host the `dist/` folder on a static host (Netlify, Vercel static, GitHub Pages, etc.).
-3. Provide `VITE_GEMINI_API_KEY` at build time in the host's environment settings.
-
-## Security / Privacy Notes
-
-- Gemini API calls are made directly from the browser, so the API key is exposed to clients.
-- User-submitted words are sent to Gemini for validation.
-- "Play again" clears all `localStorage` keys for the origin, not just this app's keys.
-
-## Contributing
-
-- Fork the repo and create a feature branch.
-- Keep changes focused and run `npm run lint` before opening a PR.
-- If you add features, consider adding a test setup (none exists today).
-
-## License
-
-No license specified.
-
 ## Live Demo
 
-[Open the app](LIVE_DEPLOYMENT_URL)
+[Open the app](https://spellingbee-game.vercel.app/)
